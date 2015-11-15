@@ -14,7 +14,7 @@ TARGET          = ./a.out
 
 LDFLAGS         +=
 ifneq ($(strip $(CXX_SRCS)), "")
- LDFLAGS         += -lstdc++ -lgtest -lpthread
+ LDFLAGS         += -lstdc++ -lpthread
 endif
 #LDFLAGS         += -Wl,--version-script,version.map 
 INCLUDE_FLAGS   = -I common
@@ -37,8 +37,8 @@ endif
 CXXFLAGS        += $(INCLUDE_FLAGS)
 CFLAGS          += $(CXXFLAGS)
 
-CXX_SRCS        = $(shell find -name "*.cpp") $(shell find -name "*.cc")
-SRCS            = $(shell find -name "*.c")
+CXX_SRCS        = $(shell find . -name "*.cpp") $(shell find . -name "*.cc")
+SRCS            = $(shell find . -name "*.c")
 OBJS            = $(subst .cpp,.o,$(subst .cc,.o,$(CXX_SRCS))) $(subst .c,.o,$(SRCS))
 
 .PHONY: all
