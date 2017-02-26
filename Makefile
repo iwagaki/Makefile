@@ -1,9 +1,39 @@
+# .PHONY
+# https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html
+# a phony target is one that is not really the name of a file
+
+# Automatic Variables
+# https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html
+# $@ the file name of the target rurle
+# $< the first prerequisite
+
+# VPATH
+# https://www.gnu.org/software/make/manual/html_node/General-Search.html
+# VPATH specifies a list of directories that make should search.
+
+# https://www.gnu.org/software/make/manual/html_node/Setting.html
+# Simply expanded variables
+#  var := value
+# Recursively expanded variables
+#  var = value
+# Conditional variable assignment operator
+#  var ?= value
+#  It only has an effect if the variable is not yet defined.
+
+# Syntax of Conditionals
+# https://www.gnu.org/software/make/manual/html_node/Conditional-Syntax.html
+# ifeq (a, b)
+# ifneq (a, b)
+# endif
+
+
+
 OBJ_DIR         = ./obj
 DEPEND_FILE     = Makefile.d
 
 CXXFLAGS        += -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE
 # Bruce Evans' BDE options
-CXXFLAGS        += -Wall -W -Wno-format-y2k -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings
+CXXFLAGS        += -Wall -W -Wno-format-y2k -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wunused-result
 CXXFLAGS        += -Wswitch -Wshadow -Wcast-align -Wuninitialized -Wformat=2
 CFLAGS          += -Wstrict-prototypes -Wmissing-prototypes
 
