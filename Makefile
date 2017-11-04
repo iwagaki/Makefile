@@ -31,7 +31,7 @@
 OBJ_DIR         = ./obj
 DEPEND_FILE     = Makefile.d
 
-CXXFLAGS        += -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE
+CXXFLAGS        += -c -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -std=c++14
 # Bruce Evans' BDE options
 CXXFLAGS        += -Wall -W -Wno-format-y2k -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wunused-result
 CXXFLAGS        += -Wswitch -Wshadow -Wcast-align -Wuninitialized -Wformat=2
@@ -67,9 +67,13 @@ endif
 CXXFLAGS        += $(INCLUDE_FLAGS)
 CFLAGS          += $(CXXFLAGS)
 
+ifeq ($(strip $(CURRENT_CXX_FILE)), "")
 CXX_SRCS        = $(shell find . -name "*.cpp") $(shell find . -name "*.cc")
 SRCS            = $(shell find . -name "*.c")
-OBJS            = $(subst .cpp,.o,$(subst .cc,.o,$(CXX_SRCS))) $(subst .c,.o,$(SRCS))
+else
+CXX_SRCS        = $(CURRENT_CXX_FILE)
+endif
+OBJS            = $(subst .c,.o,$(subst .cc,.o,$(subst .cpp,.o,$(SRC) $(CXX_SRCS))))
 
 .PHONY: all
 all: depend $(OBJS)
