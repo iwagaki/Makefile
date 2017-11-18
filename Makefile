@@ -43,7 +43,7 @@ DEBUG_FLAGS     = -O3 -g -DDEBUG
 TARGET          = ./a.out
 
 LDFLAGS         +=
-ifneq ($(strip $(CXX_SRCS)), "")
+ifneq ($(strip $(CXX_SRCS)),)
  LDFLAGS         += -lstdc++ -lpthread
 endif
 #LDFLAGS         += -Wl,--version-script,version.map 
@@ -58,7 +58,7 @@ AR              = $(CMD_PREFIX)ar
 MAKE            = $(CMD_PREFIX)make
 VPATH           = $(OBJ_DIR)
 
-ifeq ($(strip $(RELEASE)), y)
+ifeq ($(strip $(RELEASE)),y)
  CXXFLAGS       += $(RELEASE_FLAGS)
 else
  CXXFLAGS       += $(DEBUG_FLAGS) 
@@ -67,11 +67,11 @@ endif
 CXXFLAGS        += $(INCLUDE_FLAGS)
 CFLAGS          += $(CXXFLAGS)
 
-ifeq ($(strip $(CURRENT_CXX_FILE)), "")
-CXX_SRCS        = $(shell find . -name "*.cpp") $(shell find . -name "*.cc")
-SRCS            = $(shell find . -name "*.c")
+ifneq ($(strip $(CURRENT_CXX_FILE)),)
+ CXX_SRCS        = $(CURRENT_CXX_FILE)
 else
-CXX_SRCS        = $(CURRENT_CXX_FILE)
+ CXX_SRCS        = $(shell find . -name "*.cpp") $(shell find . -name "*.cc")
+ SRCS            = $(shell find . -name "*.c")
 endif
 OBJS            = $(subst .c,.o,$(subst .cc,.o,$(subst .cpp,.o,$(SRC) $(CXX_SRCS))))
 
